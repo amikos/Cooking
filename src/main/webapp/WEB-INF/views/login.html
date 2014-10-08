@@ -8,55 +8,40 @@
 <title>Login page</title>
 
 <link href="resources/css/bootstrap.min.css" rel="stylesheet" />
-<script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/jquery.min.js"></script>
 
 </head>
 <body>
 	<div th:replace="fragments/header :: header"></div>
 
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-
-				<div th:if="${error}">
-					<label th:text="${error}"></label>
-				</div>
-				<div th:if="${msg}">
-					<label th:text="${msg}"></label>
-				</div>
-
-				<form class="form-horizontal" th:action="@{/j_spring_security_check}" method="POST">
+	<div class="col-md-4 col-md-offset-4">
+		<div class="login-panel panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Sign In</h3>
+			</div>
+			<div class="panel-body">
+				<form role="form" th:action="@{/j_spring_security_check}" method="POST">
 					<fieldset>
-						<div id="legend">
-							<legend class="">Login</legend>
+						<div class="form-group">
+							<input class="form-control" placeholder="UserName" name="username"
+								type="username" autofocus=""/>
 						</div>
-
-						<div class="control-group">
-							<!-- Username -->
-							<label class="control-label" for="username">Username</label>
-							<div class="controls">
-								<input type="text" id="username" name="username" placeholder=""
-									class="input-xlarge" />
-							</div>
+						<div class="form-group">
+							<input class="form-control" placeholder="Password"
+								name="password" type="password" value=""/>
 						</div>
-						<div class="control-group">
-							<!-- Password-->
-							<label class="control-label" for="password">Password</label>
-							<div class="controls">
-								<input type="password" id="password" name="password"
-									placeholder="" class="input-xlarge" />
-							</div>
+						<div class="checkbox">
+							<label> <input name="remember" type="checkbox"
+								value="Remember Me"/>Remember Me
+							</label>
 						</div>
+						<input type="submit" value="Log in" class="btn btn-sm btn-success"/>
 					</fieldset>
-					<br /> <input type="submit" value="Log in" />
 				</form>
 			</div>
 		</div>
 	</div>
 
-	<div th:replace="fragments/rightContent :: rightContent"></div>
-	<div th:replace="fragments/footer :: footer">2014 JM Project
-		Command</div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -7,6 +7,11 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+/target
+/.settings
+.project
+.classpath
+.springBeans
 
 # Windows Installer files
 *.cab
@@ -26,8 +31,7 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
-
+Icon
 # Thumbnails
 ._*
 
