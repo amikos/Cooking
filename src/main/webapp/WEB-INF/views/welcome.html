@@ -1,0 +1,22 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorator="templates/layout">
+
+<head>
+<title>Welcome page</title>
+
+<link href="resources/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header">header</div>
+	<div th:replace="fragments/leftContent :: leftContent">All Task</div>
+	<div th:replace="fragments/rightContent :: rightContent">
+		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <a th:href="@{/login?logout}">Logout</a>
+	</div>
+	<div th:replace="fragments/footer :: footer">footer</div>
+</body>
+</html>
