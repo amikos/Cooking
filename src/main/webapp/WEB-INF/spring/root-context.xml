@@ -18,12 +18,13 @@
 	<import resource="spring-security.xml" />
 	<import resource="thymeleaf.xml"/>
 
+<!-- 
 	<jee:jndi-lookup id="dataSource"
 		jndi-name="java:jboss/datasources/PostgresqlDS" />
 		
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
-	</bean>
+	</bean> -->
 
 </beans>
