@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
-
+		
 		ModelAndView model = new ModelAndView();
 		model.addObject("title",
 				"Spring Security Login Form - Database Authentication");
