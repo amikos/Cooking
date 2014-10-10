@@ -27,6 +27,8 @@ public class RecieptController {
 		
 		ModelAndView model = new ModelAndView();
 		
+		System.out.println("getting reciepts for " + currentUser.getUsername());
+		
 		List<Reciept> reciepts =  recieptService.getUserReciepts(currentUser);
 		
 		System.out.println(reciepts.size());
@@ -57,7 +59,7 @@ public class RecieptController {
 		
 		recieptService.addReciept(reciept);
 		
-		return "redirect:/welcome";
+		return "/reciept/recieptList";
 	}
 	
 	@ModelAttribute("reciept")
