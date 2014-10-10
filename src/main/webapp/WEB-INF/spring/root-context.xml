@@ -13,18 +13,25 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	
-	<context:component-scan base-package="kz.amikos.cooking.controller" />
+	<context:component-scan base-package="kz.amikos.cooking" />
 	
 	<import resource="spring-security.xml" />
 	<import resource="thymeleaf.xml"/>
-
-<!-- 
+	
 	<jee:jndi-lookup id="dataSource"
 		jndi-name="java:jboss/datasources/PostgresqlDS" />
+		
+	<bean id="recieptDAO" class="kz.amikos.cooking.core.transaction.reciept.RecieptDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+		
+	<bean id="userDAO" class="kz.amikos.cooking.core.transaction.user.UserDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>	
 		
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
-	</bean> -->
+	</bean> 
 
 </beans>

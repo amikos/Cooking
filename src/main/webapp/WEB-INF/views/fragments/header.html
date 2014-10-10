@@ -19,7 +19,7 @@
 			<div class="collapse navbar-collapse" id="navbar-brand-centered">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#" th:href="@{/}">Menu</a></li>
-					<li><a href="#" th:href="@{/message}">Category</a></li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/reciept/recieptForm">New Reciept</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown" th:if="${#authorization.expression('isAuthenticated()')}">
@@ -29,7 +29,6 @@
 						<b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">My Profile</a></li>
-							<li><a href="#">Another action</a></li>
 							<li><a href="#">Something else here</a></li>
 							<li class="divider"></li>
 							<li><a href="/logout" th:href="@{/j_spring_security_logout}">Logout</a></li>
