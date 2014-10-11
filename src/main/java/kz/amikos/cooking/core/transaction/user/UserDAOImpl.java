@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Дом on 03.08.2014.
+ * Created by zhansar
  */
 @Component
 public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
