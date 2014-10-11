@@ -9,9 +9,7 @@ import kz.amikos.cooking.web.models.User;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	
 	private String INSERT_RECIEPT_DAO = "insert into user_reciepts (username, reciept_name, reciept_description) values (?, ?, ?)";

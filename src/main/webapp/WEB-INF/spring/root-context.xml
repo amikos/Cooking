@@ -21,13 +21,13 @@
 	<jee:jndi-lookup id="dataSource"
 		jndi-name="java:jboss/datasources/PostgreSQLDS" />
 		
-	<!-- <bean id="recieptDAO" class="kz.amikos.cooking.core.transaction.reciept.RecieptDAOImpl">
+	<bean id="recieptDAO" class="kz.amikos.cooking.core.transaction.reciept.RecieptDAOImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean> 
 		
 	<bean id="userDAO" class="kz.amikos.cooking.core.transaction.user.UserDAOImpl">
 		<property name="dataSource" ref="dataSource" />
-	</bean>	 -->
+	</bean>
 		
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
