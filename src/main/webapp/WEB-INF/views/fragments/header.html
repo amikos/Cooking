@@ -18,10 +18,15 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar-brand-centered">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#" th:href="@{/}">Menu</a></li>
-					<li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/reciept/recieptForm">New Reciept</a></li>
+					<li><a href="../reciept/allReciepts" th:href="@{/reciept/allReciepts}">All Reciepts</a></li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}">
+						<a href="../reciept/myReciepts" th:href="@{/reciept/myReciepts}">My Reciepts</a></li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}">
+						<a href="../reciept/recieptForm" th:href="@{/reciept/recieptForm}">New Reciept</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown" th:if="${#authorization.expression('!isAuthenticated()')}">
+					<a href="../login">Sign in</a></li>
 					<li class="dropdown" th:if="${#authorization.expression('isAuthenticated()')}">
 					<a href="" class="dropdown-toggle"
 						data-toggle="dropdown">

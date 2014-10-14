@@ -6,8 +6,8 @@
    <!-- enable use-expressions --> 
 	<http auto-config="true" use-expressions="true">
  		
- 		<intercept-url pattern="/" access="isAuthenticated()" />
- 		<intercept-url pattern="/reciept/*" access="isAuthenticated()" />
+ 		<!-- <intercept-url pattern="/reciept/recieptList" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
+ 		<intercept-url pattern="/reciept/myReciepts" access="isAuthenticated()" />
  		<intercept-url pattern="/welcome" access="isAuthenticated()" />
 		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/upload" access="isAuthenticated()" />
@@ -17,7 +17,7 @@
  
 		<form-login 
 		    login-page="/login" 
-		    default-target-url="/reciept/recieptList" 
+		    default-target-url="/reciept/allReciepts" 
 			authentication-failure-url="/login?error"
 			username-parameter="username"
 			password-parameter="password" />

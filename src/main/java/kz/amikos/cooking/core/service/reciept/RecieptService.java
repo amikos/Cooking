@@ -10,5 +10,7 @@ public interface RecieptService {
 	void addReciept(Reciept reciept);
 	
 	List<Reciept> getUserReciepts(User user);
+	
+	List<Reciept> getAllReciepts();
 
 }

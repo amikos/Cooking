@@ -27,4 +27,9 @@ public class RecieptServiceImpl implements RecieptService {
 		return recieptDAO.getUserReciepts(user);
 	}
 	
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Reciept> getAllReciepts(){
+		return recieptDAO.getAllReciepts();
+	}
+	
 }

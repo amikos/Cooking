@@ -5,7 +5,7 @@ import java.util.List;
 import kz.amikos.cooking.web.models.Reciept;
 import kz.amikos.cooking.web.models.User;
 import kz.amikos.cooking.core.provider.CustomAuthenticationProvider;
-import kz.amikos.cooking.core.service.reciept.RecieptServiceImpl;
+import kz.amikos.cooking.core.service.reciept.RecieptService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,25 +18,31 @@ import org.springframework.web.servlet.ModelAndView;
 public class RecieptController {
 
 	@Autowired
-	RecieptServiceImpl recieptService;
+	RecieptService recieptService;
 	
 
-	@RequestMapping(value = { "/reciept/recieptList" }, method = RequestMethod.GET)
-	public ModelAndView recieptList() {
+	@RequestMapping(value = { "/reciept/myReciepts" }, method = RequestMethod.GET)
+	public ModelAndView myRecieptList() {
 		
 		ModelAndView model = new ModelAndView();
 		
 		User currentUser = CustomAuthenticationProvider.getAuthenticatedUser();
 		
-		System.out.println("getting reciepts for " + currentUser.getUsername());
+		model.addObject("myRecieptList", recieptService.getUserReciepts(currentUser));
 		
-		List<Reciept> reciepts =  recieptService.getUserReciepts(currentUser);
-		
-		System.out.println(reciepts.size());
+		model.setViewName("/reciept/myReciepts");
+		return model;
 
-		model.addObject("recieptList", recieptService.getUserReciepts(currentUser));
+	}
+	
+	@RequestMapping(value = { "/reciept/allReciepts" }, method = RequestMethod.GET)
+	public ModelAndView allRecieptList() {
 		
-		model.setViewName("/reciept/recieptList");
+		ModelAndView model = new ModelAndView();
+		
+		model.addObject("allRecieptList", recieptService.getAllReciepts());
+		
+		model.setViewName("/reciept/allReciepts");
 		return model;
 
 	}
@@ -51,16 +57,15 @@ public class RecieptController {
 	@RequestMapping(value = { "/reciept/addReciept" }, method = RequestMethod.POST)
 	public String addReciept(@ModelAttribute("reciept") Reciept reciept) {
 		
-		
 		//TODO Validate reciept
 		System.out.println("Name=" + reciept.getRecieptName());
 		System.out.println("Description=" + reciept.getRecieptDescription());
 		
-		reciept.setUsername("zhansar");
+		reciept.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
 		
 		recieptService.addReciept(reciept);
 		
-		return "/reciept/recieptList";
+		return "redirect:/reciept/myReciepts";
 	}
 	
 	@ModelAttribute("reciept")
@@ -68,9 +73,14 @@ public class RecieptController {
 		return new Reciept();
 	}
 	
-	@ModelAttribute("recieptList")
-	private List<Reciept> getRecieptList() {
-		return recieptService.getUserReciepts(CustomAuthenticationProvider.getAuthenticatedUser());
-	}
+//	@ModelAttribute("myRecieptList")
+//	private List<Reciept> getMyRecieptList() {
+//		return recieptService.getUserReciepts(CustomAuthenticationProvider.getAuthenticatedUser());
+//	}
+//	
+//	@ModelAttribute("allRecieptList")
+//	private List<Reciept> getAllRecieptList() {
+//		return recieptService.getAllReciepts();
+//	}
 
 }
