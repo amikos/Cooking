@@ -8,4 +8,5 @@ public interface UserDAO {
 
 	public void addUser(User user);
 	public List<User> getAllUsers();
+	public User loadUserByUsername(String userName);
 }
