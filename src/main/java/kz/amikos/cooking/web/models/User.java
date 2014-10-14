@@ -9,8 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-@Component
-@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class User implements UserDetails{
 	/**
 	 * 

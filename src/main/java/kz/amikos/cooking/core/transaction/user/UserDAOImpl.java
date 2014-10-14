@@ -37,9 +37,13 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 
 	@Override
 	public User loadUserByUsername(String userName) {
-		User user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
+		User user = null;
+		try {
+			user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
+			user.setAuthorities(loadRolesByUsername(userName));
+		} catch (Exception e) {
+		}
 		
-		user.setAuthorities(loadRolesByUsername(userName));
 		return user;
 	}
 	

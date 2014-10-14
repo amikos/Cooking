@@ -4,6 +4,7 @@ import java.util.List;
 
 import kz.amikos.cooking.web.models.Reciept;
 import kz.amikos.cooking.web.models.User;
+import kz.amikos.cooking.core.provider.CustomAuthenticationProvider;
 import kz.amikos.cooking.core.service.reciept.RecieptServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,13 @@ public class RecieptController {
 	@Autowired
 	RecieptServiceImpl recieptService;
 	
-	@Autowired
-	User currentUser;
 
 	@RequestMapping(value = { "/reciept/recieptList" }, method = RequestMethod.GET)
 	public ModelAndView recieptList() {
 		
 		ModelAndView model = new ModelAndView();
+		
+		User currentUser = CustomAuthenticationProvider.getAuthenticatedUser();
 		
 		System.out.println("getting reciepts for " + currentUser.getUsername());
 		
@@ -69,7 +70,7 @@ public class RecieptController {
 	
 	@ModelAttribute("recieptList")
 	private List<Reciept> getRecieptList() {
-		return recieptService.getUserReciepts(currentUser);
+		return recieptService.getUserReciepts(CustomAuthenticationProvider.getAuthenticatedUser());
 	}
 
 }
