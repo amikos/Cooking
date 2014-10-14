@@ -32,7 +32,7 @@
 	            <user name="jansar" password="123" authorities="ROLE_ADMIN" />
 	        </user-service>
 	    </authentication-provider>
-	</authentication-manager>-->
+	</authentication-manager>
 
 
 	<authentication-manager>
@@ -43,6 +43,10 @@
 				authorities-by-username-query="select username, role from user_roles 
 		where username =? " />
 		</authentication-provider>
-	</authentication-manager> 
+	</authentication-manager> -->
+	
+	<authentication-manager alias="authenticationManager">
+        <authentication-provider ref="customAuthenticationProvider" />
+    </authentication-manager>
 
 </beans:beans>
