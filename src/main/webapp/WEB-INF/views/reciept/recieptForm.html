@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -5,6 +6,7 @@
 	layout:decorator="./templates/layout">
 
 <head>
+<meta charset="utf-8" />
 <title>Welcome page</title>
 
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet" />
@@ -15,22 +17,27 @@
 <body>
 	<div th:replace="fragments/header :: header">header</div>
 
-	<form method="POST" th:object="${reciept}" action="addReciept">
-		<table>
-			<tr>
-				<td>Name:</td>
-				<td><input type="text" th:field="*{recieptName}" /></td>
-			</tr>
-			<tr>
-				<td>Address:</td>
-				<td><input type="text" th:field="*{recieptDescription}" /></td>
-			</tr>
-			<tr>
-				<td colspan="3"><input type="submit" value="Save" /></td>
-			</tr>
-		</table>
-	</form>
-
+	<div class="container">
+		<h2>New Reciept</h2>
+		<form method="POST" th:object="${reciept}" action="addReciept"
+			enctype="multipart/form-data" class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="Name">Name</label> <input class="form-control"
+					placeholder="Name" name="Name" id="Name" type="text" autofocus=""
+					th:field="*{recieptName}" />
+			</div>
+			<div class="form-group">
+				<label for="Description">Description</label> <input class="form-control"
+					placeholder="Description" name="Description" id="Description"  type="text"
+					th:field="*{recieptDescription}" />
+			</div>
+			<div class="form-group">
+				<label for="File">File</label> <input class="file"
+					placeholder="File" name="File"  id="File" type="file" />
+			</div>
+			<input type="submit" value="Save" class="btn btn-sm btn-success" />
+		</form>
+	</div>
 
 	<div th:replace="fragments/footer :: footer">footer</div>
 </body>

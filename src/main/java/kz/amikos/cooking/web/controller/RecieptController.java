@@ -1,7 +1,5 @@
 package kz.amikos.cooking.web.controller;
 
-import java.util.List;
-
 import kz.amikos.cooking.web.models.Reciept;
 import kz.amikos.cooking.web.models.User;
 import kz.amikos.cooking.core.provider.CustomAuthenticationProvider;
