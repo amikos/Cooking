@@ -1,15 +1,24 @@
 package kz.amikos.cooking.web.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
+import kz.amikos.cooking.web.models.Image;
 import kz.amikos.cooking.web.models.Reciept;
 import kz.amikos.cooking.web.models.User;
 import kz.amikos.cooking.core.provider.CustomAuthenticationProvider;
+import kz.amikos.cooking.core.service.image.ImageService;
 import kz.amikos.cooking.core.service.reciept.RecieptService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,6 +27,8 @@ public class RecieptController {
 	@Autowired
 	RecieptService recieptService;
 	
+	@Autowired
+	ImageService imageService;
 
 	@RequestMapping(value = { "/reciept/myReciepts" }, method = RequestMethod.GET)
 	public ModelAndView myRecieptList() {
@@ -31,6 +42,19 @@ public class RecieptController {
 		model.setViewName("/reciept/myReciepts");
 		return model;
 
+	}
+	
+	@RequestMapping("/getImage{id}")
+	public void getImage(HttpServletResponse response, @RequestParam("id") final Integer id) throws IOException {
+		
+		System.out.println("id=" + id);
+		
+	    response.setContentType("image/jpeg");
+	    Image image = imageService.getImage(id);
+	    System.out.println("imageBytes=" + image.getImageByte());
+	    System.out.println("imageName=" + image.getImageName());
+	    response.getOutputStream().write(image.getImageByte());
+	    response.getOutputStream().flush();
 	}
 	
 	@RequestMapping(value = { "/reciept/allReciepts" }, method = RequestMethod.GET)
@@ -53,17 +77,37 @@ public class RecieptController {
 	}
 	
 	@RequestMapping(value = { "/reciept/addReciept" }, method = RequestMethod.POST)
-	public String addReciept(@ModelAttribute("reciept") Reciept reciept) {
+	public String addReciept(@ModelAttribute("reciept") Reciept reciept, @RequestParam("file") MultipartFile file) {
 		
-		//TODO Validate reciept
-		System.out.println("Name=" + reciept.getRecieptName());
-		System.out.println("Description=" + reciept.getRecieptDescription());
+		byte[] imageByte = null;
+		if (!file.isEmpty()) {
+            try {
+            	imageByte = file.getBytes();
+            } catch (Exception e) {
+            	e.printStackTrace();
+                return "You failed to upload " + file.getName() + " => " + e.getMessage();
+            }
+            	
+            reciept.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
+            
+            Image image = new Image();
+            image.setImageByte(imageByte);
+            image.setImageName(file.getName());
+            
+    		int recieptId = recieptService.addReciept(reciept);
+    		
+    		System.out.println(recieptId);
+    		
+    		image.setReciept_id(recieptId);
+    		
+    		imageService.addImage(image);
+    		
+    		return "redirect:/reciept/myReciepts";
+            
+        } else {
+            return "You failed to upload " + file.getName() + " because the file was empty.";
+        }
 		
-		reciept.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
-		
-		recieptService.addReciept(reciept);
-		
-		return "redirect:/reciept/myReciepts";
 	}
 	
 	@ModelAttribute("reciept")
@@ -71,14 +115,4 @@ public class RecieptController {
 		return new Reciept();
 	}
 	
-//	@ModelAttribute("myRecieptList")
-//	private List<Reciept> getMyRecieptList() {
-//		return recieptService.getUserReciepts(CustomAuthenticationProvider.getAuthenticatedUser());
-//	}
-//	
-//	@ModelAttribute("allRecieptList")
-//	private List<Reciept> getAllRecieptList() {
-//		return recieptService.getAllReciepts();
-//	}
-
 }

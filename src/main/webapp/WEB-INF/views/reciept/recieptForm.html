@@ -19,21 +19,21 @@
 
 	<div class="container">
 		<h2>New Reciept</h2>
-		<form method="POST" th:object="${reciept}" action="addReciept"
+		<form method="POST" th:object="${reciept}" th:action="@{addReciept}"
 			enctype="multipart/form-data" class="form-horizontal" role="form">
 			<div class="form-group">
-				<label for="Name">Name</label> <input class="form-control"
-					placeholder="Name" name="Name" id="Name" type="text" autofocus=""
+				<label for="name">Name</label> <input class="form-control"
+					placeholder="name" name="name" id="name" type="text" autofocus=""
 					th:field="*{recieptName}" />
 			</div>
 			<div class="form-group">
-				<label for="Description">Description</label> <input class="form-control"
-					placeholder="Description" name="Description" id="Description"  type="text"
+				<label for="description">Description</label> <input class="form-control"
+					placeholder="description" name="description" id="description"  type="text"
 					th:field="*{recieptDescription}" />
 			</div>
 			<div class="form-group">
-				<label for="File">File</label> <input class="file"
-					placeholder="File" name="File"  id="File" type="file" />
+				<label for="file">File</label> <input class="file"
+					placeholder="file" name="file"  id="file" type="file" />
 			</div>
 			<input type="submit" value="Save" class="btn btn-sm btn-success" />
 		</form>

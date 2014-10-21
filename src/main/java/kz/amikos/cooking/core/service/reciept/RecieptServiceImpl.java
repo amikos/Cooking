@@ -18,8 +18,8 @@ public class RecieptServiceImpl implements RecieptService {
 	RecieptDAOImpl recieptDAO;
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public void addReciept(Reciept reciept) {
-		recieptDAO.addReciept(reciept);
+	public int addReciept(Reciept reciept) {
+		return recieptDAO.addReciept(reciept);
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

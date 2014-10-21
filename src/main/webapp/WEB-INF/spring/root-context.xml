@@ -28,6 +28,10 @@
 	<bean id="userDAO" class="kz.amikos.cooking.core.transaction.user.UserDAOImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	<bean id="imageDAO" class="kz.amikos.cooking.core.transaction.image.ImageDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 		
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

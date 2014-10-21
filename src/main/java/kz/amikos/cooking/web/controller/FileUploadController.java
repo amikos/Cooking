@@ -4,6 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import kz.amikos.cooking.core.service.reciept.RecieptService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class FileUploadController {
+	
+	@Autowired
+	RecieptService recieptService; 
 	
     @RequestMapping(value="/upload", method=RequestMethod.GET)
     public @ResponseBody String provideUploadInfo() {
@@ -25,20 +31,6 @@ public class FileUploadController {
             try {
             	byte[] bytes = file.getBytes();
             	
-            	// Creating the directory to store file
-                String rootPath = System.getProperty("jboss.server.data.dir");
-                File dir = new File(rootPath + File.separator + "files");
-                if (!dir.exists())
-                    dir.mkdirs();
- 
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + file.getName());
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-                
                 return "You successfully uploaded " + file.getName() + " into " + file.getName() + "-uploaded !";
             } catch (Exception e) {
                 return "You failed to upload " + file.getName() + " => " + e.getMessage();

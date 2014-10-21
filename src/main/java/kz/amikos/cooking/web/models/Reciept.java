@@ -1,9 +1,44 @@
 package kz.amikos.cooking.web.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Reciept {
+	private int recieptId;
 	private String username;
 	private String recieptName;
 	private String recieptDescription;
+	private List<Image> images;
+	
+	public int getFirstImageId(){
+		if (images != null){
+			if (!images.isEmpty()) {
+				return images.get(0).getImage_id();
+			}
+		}
+		return 0;
+	}
+	
+	public void addImage(Image image){
+		if (images == null) images = new ArrayList<Image>();
+		images.add(image);
+	}
+	
+	public int getRecieptId() {
+		return recieptId;
+	}
+
+	public void setRecieptId(int recieptId) {
+		this.recieptId = recieptId;
+	}
+	
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
 
 	public String getUsername() {
 		return username;

@@ -7,10 +7,10 @@ import kz.amikos.cooking.web.models.User;
 
 public interface RecieptService {
 		
-	void addReciept(Reciept reciept);
+	int addReciept(Reciept reciept);
 	
 	List<Reciept> getUserReciepts(User user);
 	
 	List<Reciept> getAllReciepts();
-
+	
 }

@@ -1,0 +1,32 @@
+[33mcommit 15e26e479ae5de059cd24621bd6528a25b56190d[m
+Author: amikos <jansar86@gmail.com>
+Date:   Thu Oct 16 01:34:12 2014 +0600
+
+    other image
+
+[1mdiff --git a/src/main/webapp/WEB-INF/views/reciept/allReciepts.html b/src/main/webapp/WEB-INF/views/reciept/allReciepts.html[m
+[1mindex a20c034..4f98067 100644[m
+[1m--- a/src/main/webapp/WEB-INF/views/reciept/allReciepts.html[m
+[1m+++ b/src/main/webapp/WEB-INF/views/reciept/allReciepts.html[m
+[36m@@ -21,7 +21,7 @@[m
+ 				<div class="col-sm-6 col-md-4">[m
+ 					<div class="thumbnail">[m
+ 						<img[m
+[31m-							src="http://www.kaczmarek-photo.com/wp-content/uploads/2012/06/guinnes-150x150.jpg"[m
+[32m+[m							[32msrc="http://img4.cookinglight.com/i/2011/01/1101p109-cooking-class-stews-m.jpg"[m
+ 							alt="ALT NAME" />[m
+ 						<div class="caption">[m
+ 							<h3 th:text="${recieptItem.recieptName}">Header Name</h3>[m
+[1mdiff --git a/src/main/webapp/WEB-INF/views/reciept/myReciepts.html b/src/main/webapp/WEB-INF/views/reciept/myReciepts.html[m
+[1mindex a1afed8..0a59fb0 100644[m
+[1m--- a/src/main/webapp/WEB-INF/views/reciept/myReciepts.html[m
+[1m+++ b/src/main/webapp/WEB-INF/views/reciept/myReciepts.html[m
+[36m@@ -21,7 +21,7 @@[m
+ 				<div class="col-sm-6 col-md-4">[m
+ 					<div class="thumbnail">[m
+ 						<img[m
+[31m-							src="http://www.kaczmarek-photo.com/wp-content/uploads/2012/06/guinnes-150x150.jpg"[m
+[32m+[m							[32msrc="http://img4.cookinglight.com/i/2011/01/1101p109-cooking-class-stews-m.jpg"[m
+ 							alt="ALT NAME" />[m
+ 						<div class="caption">[m
+ 							<h3 th:text="${recieptItem.recieptName}">Header Name</h3>[m
