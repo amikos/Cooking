@@ -76,6 +76,10 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 				reciept.setUsername(rs.getString("username"));
 				reciept.setRecieptName(rs.getString("reciept_name"));
 				reciept.setRecieptDescription(rs.getString("reciept_description"));
+				
+				List<Image> images = imageService.getImagesByRecieptId(reciept.getRecieptId());
+				reciept.setImages(images);
+				
 				return reciept;
 			}}
 		);
