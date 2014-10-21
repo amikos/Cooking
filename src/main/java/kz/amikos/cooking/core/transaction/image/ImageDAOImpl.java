@@ -7,7 +7,6 @@ import java.util.List;
 import kz.amikos.cooking.web.models.Image;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -26,7 +25,7 @@ public class ImageDAOImpl extends JdbcDaoSupport implements ImageDAO{
 	public Image getImage(int id) {
 		Image image = null;
 		try {
-			System.out.println("try");
+			//TODO Change
 			image = getJdbcTemplate().query(SELECT_IMAGES_DAO + " where image_id=" + id, new ResultSetExtractor<Image>() {
 		        @Override
 		        public Image extractData(ResultSet rs) throws SQLException, DataAccessException  {
@@ -38,7 +37,6 @@ public class ImageDAOImpl extends JdbcDaoSupport implements ImageDAO{
 		        }
 		    });
 //			image = (Image) getJdbcTemplate().querqueryForObject(SELECT_IMAGES_DAO + " where image_id=" + id, new BeanPropertyRowMapper<Image>(Image.class));
-			System.out.println("getted");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

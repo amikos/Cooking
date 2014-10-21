@@ -29,6 +29,7 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 
 	public int addReciept(final Reciept reciept) {
 		
+		//TODO Change
 		final PreparedStatementCreator psc = new PreparedStatementCreator() {
 			
 	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {

@@ -14,7 +14,6 @@ import kz.amikos.cooking.core.service.reciept.RecieptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,12 +46,8 @@ public class RecieptController {
 	@RequestMapping("/getImage{id}")
 	public void getImage(HttpServletResponse response, @RequestParam("id") final Integer id) throws IOException {
 		
-		System.out.println("id=" + id);
-		
 	    response.setContentType("image/jpeg");
 	    Image image = imageService.getImage(id);
-	    System.out.println("imageBytes=" + image.getImageByte());
-	    System.out.println("imageName=" + image.getImageName());
 	    response.getOutputStream().write(image.getImageByte());
 	    response.getOutputStream().flush();
 	}

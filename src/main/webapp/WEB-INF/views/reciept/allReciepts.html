@@ -20,7 +20,7 @@
 			<div th:each="recieptItem : ${allRecieptList}">
 				<div class="col-sm-6 col-md-4">
 					<div class="thumbnail">
-						<img
+						<img th:src="@{/getImage(id=${recieptItem.getFirstImageId()})}"
 							src="http://img4.cookinglight.com/i/2011/01/1101p109-cooking-class-stews-m.jpg"
 							alt="ALT NAME" />
 						<div class="caption">
