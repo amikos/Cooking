@@ -7,7 +7,8 @@ import java.util.List;
 import kz.amikos.cooking.web.models.Role;
 import kz.amikos.cooking.web.models.User;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -37,13 +38,24 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 
 	@Override
 	public User loadUserByUsername(String userName) {
-		User user = null;
-		try {
-			user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
-			user.setAuthorities(loadRolesByUsername(userName));
-		} catch (Exception e) {
-		}
 		
+		User user =  getJdbcTemplate().query(SELECT_USER_DAO + " where username='" + userName + "'", new ResultSetExtractor<User>() {
+	        @Override
+	        public User extractData(ResultSet rs) throws SQLException, DataAccessException  {
+	        	if (rs.next()) {
+	        		User user = new User();
+	        		user.setUsername(rs.getString("username"));
+	        		user.setPassword(rs.getString("password"));
+	        		
+	        		user.setAuthorities(loadRolesByUsername(user.getUsername()));
+	        		
+	        		return user;
+	        	}
+	        	return null;
+	        }
+	    });
+		
+//		User user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
 		return user;
 	}
 	

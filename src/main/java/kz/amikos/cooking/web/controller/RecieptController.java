@@ -31,7 +31,7 @@ public class RecieptController {
 
 	@RequestMapping(value = { "/reciept/myReciepts" }, method = RequestMethod.GET)
 	public ModelAndView myRecieptList() {
-		
+		 
 		ModelAndView model = new ModelAndView();
 		
 		User currentUser = CustomAuthenticationProvider.getAuthenticatedUser();
@@ -46,10 +46,13 @@ public class RecieptController {
 	@RequestMapping("/getImage{id}")
 	public void getImage(HttpServletResponse response, @RequestParam("id") final Integer id) throws IOException {
 		
-	    response.setContentType("image/jpeg");
-	    Image image = imageService.getImage(id);
-	    response.getOutputStream().write(image.getImageByte());
-	    response.getOutputStream().flush();
+		if (id != 0) { 
+		    response.setContentType("image/jpeg");
+		    Image image = imageService.getImage(id);
+		    
+		    response.getOutputStream().write(image.getImageByte());
+		    response.getOutputStream().flush();
+		}
 	}
 	
 	@RequestMapping(value = { "/reciept/allReciepts" }, method = RequestMethod.GET)
@@ -64,10 +67,10 @@ public class RecieptController {
 
 	}
 	
-	@RequestMapping(value = { "/reciept/recieptForm" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/reciept/newReciept" }, method = RequestMethod.GET)
 	public String recieptForm() {
 		
-		return "/reciept/recieptForm";
+		return "/reciept/newReciept";
 
 	}
 	
@@ -90,8 +93,6 @@ public class RecieptController {
             image.setImageName(file.getName());
             
     		int recieptId = recieptService.addReciept(reciept);
-    		
-    		System.out.println(recieptId);
     		
     		image.setReciept_id(recieptId);
     		

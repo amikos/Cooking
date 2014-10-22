@@ -46,7 +46,6 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	        
 		getJdbcTemplate().update(psc, keyHolder);
 				
-//				INSERT_RECIEPT_DAO, reciept.getUsername(), reciept.getRecieptName(), reciept.getRecieptDescription());
 		return Integer.parseInt(keyHolder.getKeys().get("reciept_id").toString());
 	}
 

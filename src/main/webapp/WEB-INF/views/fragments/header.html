@@ -22,7 +22,7 @@
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
 						<a href="../reciept/myReciepts" th:href="@{/reciept/myReciepts}">My Reciepts</a></li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
-						<a href="../reciept/recieptForm" th:href="@{/reciept/recieptForm}">New Reciept</a></li>
+						<a href="../reciept/newReciept" th:href="@{/reciept/newReciept}">New Reciept</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown" th:if="${#authorization.expression('!isAuthenticated()')}">

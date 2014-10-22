@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="container" th:fragment="recieptsList (recieptItemlist)">
+		<div class="row">
+			<div th:each="recieptItem : ${recieptItemlist}">
+				<div class="col-sm-6 col-md-4">
+					<div class="thumbnail">
+						<img th:src="@{/getImage(id=${recieptItem.getFirstImageId()})}"/>
+						<div class="caption">
+							<h3 th:text="${recieptItem.recieptName}">Header Name</h3>
+							<p th:text="${recieptItem.recieptDescription}">Description</p>
+							<p align="center">
+								<a href="http://bootsnipp.com/"
+									class="btn btn-primary btn-block">Open</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

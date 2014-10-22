@@ -37,9 +37,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Wrong password.");
         }
         
-        System.out.println("finded user " + user.getUsername());
-        System.out.println("roles user " + user.getAuthorities().toString());
- 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
  
         return new UsernamePasswordAuthenticationToken(user, password, authorities);
