@@ -13,7 +13,9 @@ import kz.amikos.cooking.web.models.Reciept;
 import kz.amikos.cooking.web.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -26,6 +28,27 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	
 	@Autowired
 	ImageService imageService;
+	
+	@Override
+	public Reciept getReciept(int id) {
+		
+		return getJdbcTemplate().query(SELECT_RECIEPT_DAO + " where reciept_id=" + id + "", new ResultSetExtractor<Reciept>() {
+	        @Override
+	        public Reciept extractData(ResultSet rs) throws SQLException, DataAccessException  {
+	        	if (rs.next()) {
+	        		Reciept reciept = new Reciept();
+	        		reciept.setRecieptId(rs.getInt("reciept_id"));
+	        		reciept.setRecieptDescription(rs.getString("reciept_description"));
+	        		reciept.setRecieptName(rs.getString("reciept_name"));
+	        		
+	        		return reciept;
+	        	}
+	        	return null;
+	        }
+	    });
+		
+//		User user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
+	}
 
 	public int addReciept(final Reciept reciept) {
 		

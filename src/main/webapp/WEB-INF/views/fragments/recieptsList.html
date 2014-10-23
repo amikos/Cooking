@@ -12,7 +12,7 @@
 							<h3 th:text="${recieptItem.recieptName}">Header Name</h3>
 							<p th:text="${recieptItem.recieptDescription}">Description</p>
 							<p align="center">
-								<a href="http://bootsnipp.com/"
+								<a th:href="@{../reciept/editReciept(id=${recieptItem.recieptId})}"
 									class="btn btn-primary btn-block">Open</a>
 							</p>
 						</div>

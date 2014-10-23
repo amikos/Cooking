@@ -67,14 +67,31 @@ public class RecieptController {
 
 	}
 	
-	@RequestMapping(value = { "/reciept/newReciept" }, method = RequestMethod.GET)
-	public String recieptForm() {
+	@RequestMapping(value = { "/reciept/editReciept{id}" }, method = RequestMethod.GET)
+	public ModelAndView editReciept(@RequestParam("id") final Integer id) {
 		
-		return "/reciept/newReciept";
+		ModelAndView model = new ModelAndView();
+		
+		model.addObject("reciept", recieptService.getReciept(id));
+		
+		model.setViewName("/reciept/editReciept");
+		return model;
 
 	}
 	
-	@RequestMapping(value = { "/reciept/addReciept" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/reciept/newReciept" }, method = RequestMethod.GET)
+	public ModelAndView recieptForm() {
+		
+		ModelAndView model = new ModelAndView();
+		
+		model.addObject("reciept", new Reciept());
+		
+		model.setViewName("/reciept/newReciept");
+		return model;
+
+	}
+	
+	@RequestMapping(value = { "/reciept/newReciept" }, method = RequestMethod.POST)
 	public String addReciept(@ModelAttribute("reciept") Reciept reciept, @RequestParam("file") MultipartFile file) {
 		
 		byte[] imageByte = null;
@@ -106,9 +123,6 @@ public class RecieptController {
 		
 	}
 	
-	@ModelAttribute("reciept")
-	private Reciept getReciept() {
-		return new Reciept();
-	}
+	
 	
 }

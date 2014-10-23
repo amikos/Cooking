@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="container" th:fragment="recieptForm (actionName)">
+	<h2>Reciept</h2>
+	
+		<form method="POST" th:object="${reciept}" th:action="${actionName}"
+			enctype="multipart/form-data" class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="name">Name</label> <input class="form-control"
+					placeholder="name" name="name" id="name" type="text" autofocus=""
+					th:field="*{recieptName}" />
+			</div>
+			<div class="form-group">
+				<label for="description">Description</label> <input
+					class="form-control" placeholder="description" name="description"
+					id="description" type="text" th:field="*{recieptDescription}" />
+			</div>
+			<div class="form-group">
+				<label for="file">File</label> <input class="file"
+					placeholder="file" name="file" id="file" type="file" />
+			</div>
+			<input type="submit" th:value="${actionName}" value="Save" class="btn btn-sm btn-success" />
+		</form>
+		
+	</div>
+</body>
+</html>

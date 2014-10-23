@@ -39,7 +39,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 	@Override
 	public User loadUserByUsername(String userName) {
 		
-		User user =  getJdbcTemplate().query(SELECT_USER_DAO + " where username='" + userName + "'", new ResultSetExtractor<User>() {
+		return getJdbcTemplate().query(SELECT_USER_DAO + " where username='" + userName + "'", new ResultSetExtractor<User>() {
 	        @Override
 	        public User extractData(ResultSet rs) throws SQLException, DataAccessException  {
 	        	if (rs.next()) {
@@ -56,7 +56,6 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 	    });
 		
 //		User user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
-		return user;
 	}
 	
 	private List<Role> loadRolesByUsername(String userName){

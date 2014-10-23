@@ -31,5 +31,10 @@ public class RecieptServiceImpl implements RecieptService {
 	public List<Reciept> getAllReciepts(){
 		return recieptDAO.getAllReciepts();
 	}
+
+	@Override
+	public Reciept getReciept(int id) {
+		return recieptDAO.getReciept(id);
+	}
 	
 }
