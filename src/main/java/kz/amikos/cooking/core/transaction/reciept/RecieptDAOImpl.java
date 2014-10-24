@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.List;
 
 import kz.amikos.cooking.core.service.image.ImageService;
@@ -25,9 +26,34 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	
 	private String INSERT_RECIEPT_DAO = "insert into user_reciepts (username, reciept_name, reciept_description) values (?, ?, ?)";
 	private String SELECT_RECIEPT_DAO = "select reciept_id, username, reciept_name, reciept_description from user_reciepts";
+	private String UPDATE_RECIEPT_DAO = "update user_reciepts set reciept_name = ?, reciept_description = ? where reciept_id = ?";
 	
 	@Autowired
 	ImageService imageService;
+	
+	@Override
+	public void updateReciept(final Reciept reciept) {
+		
+		//TODO Change
+//		final PreparedStatementCreator psc = new PreparedStatementCreator() {
+//			
+//	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//	            PreparedStatement ps =
+//	                connection.prepareStatement(UPDATE_RECIEPT_DAO);
+//	            ps.setString(1, reciept.getRecieptName());
+//	            ps.setString(2, reciept.getRecieptDescription());
+//	            ps.setInt(3, reciept.getRecieptId());
+//	            return ps;
+//	        }
+//		};
+//		
+//		getJdbcTemplate().update(psc);
+		
+        Object[] params = {reciept.getRecieptName(), reciept.getRecieptDescription(), reciept.getRecieptId()};
+        int[] types = {Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+ 
+        int rows = getJdbcTemplate().update(UPDATE_RECIEPT_DAO, params, types);
+	}
 	
 	@Override
 	public Reciept getReciept(int id) {
@@ -41,6 +67,8 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	        		reciept.setRecieptDescription(rs.getString("reciept_description"));
 	        		reciept.setRecieptName(rs.getString("reciept_name"));
 	        		
+	        		System.out.println(reciept.getRecieptId());
+	        		
 	        		return reciept;
 	        	}
 	        	return null;
@@ -50,6 +78,7 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 //		User user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
 	}
 
+	@Override
 	public int addReciept(final Reciept reciept) {
 		
 		//TODO Change
@@ -72,6 +101,7 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 		return Integer.parseInt(keyHolder.getKeys().get("reciept_id").toString());
 	}
 
+	@Override
 	public List<Reciept> getUserReciepts(User user) {
 		return getJdbcTemplate().query(SELECT_RECIEPT_DAO + " where username='" + user.getUsername() +"'", new RowMapper<Reciept>() {
 			public Reciept mapRow(ResultSet rs, int rowNum) throws SQLException {

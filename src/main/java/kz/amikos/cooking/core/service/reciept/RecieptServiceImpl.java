@@ -22,7 +22,7 @@ public class RecieptServiceImpl implements RecieptService {
 		return recieptDAO.addReciept(reciept);
 	}
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	//@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Reciept> getUserReciepts(User user) {
 		return recieptDAO.getUserReciepts(user);
 	}
@@ -33,8 +33,15 @@ public class RecieptServiceImpl implements RecieptService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Reciept getReciept(int id) {
 		return recieptDAO.getReciept(id);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public void updateReciept(Reciept reciept) {
+		recieptDAO.updateReciept(reciept);
 	}
 	
 }

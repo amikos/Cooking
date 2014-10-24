@@ -7,6 +7,8 @@ import kz.amikos.cooking.web.models.User;
 
 public interface RecieptService {
 	
+	void updateReciept(final Reciept reciept);
+	
 	Reciept getReciept(int id);
 		
 	int addReciept(Reciept reciept);

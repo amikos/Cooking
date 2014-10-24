@@ -79,6 +79,17 @@ public class RecieptController {
 
 	}
 	
+	@RequestMapping(value = { "/reciept/editReciept" }, method = RequestMethod.POST)
+	public String editReciept(@ModelAttribute("reciept") Reciept reciept, @RequestParam("file") MultipartFile file) {
+		recieptService.updateReciept(reciept);
+		
+		System.out.println(reciept.getRecieptId());
+		
+		System.out.println(reciept.getRecieptName());
+		
+		return "redirect:/reciept/myReciepts";
+	}
+	
 	@RequestMapping(value = { "/reciept/newReciept" }, method = RequestMethod.GET)
 	public ModelAndView recieptForm() {
 		
