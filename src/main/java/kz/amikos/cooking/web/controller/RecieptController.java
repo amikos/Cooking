@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,16 +45,10 @@ public class RecieptController {
 	}
 	
 	@RequestMapping("/getImage{id}")
-	public void getImage(HttpServletResponse response, @RequestParam("id") final Integer id) throws IOException {
-		
-		if (id != 0) { 
-		    response.setContentType("image/jpeg");
-		    
-		    Image image = imageService.getImage(id);
-		    System.out.println("lenght=" + image.getImageByte().length);
-		    response.getOutputStream().write(image.getImageByte());
-		    response.getOutputStream().flush();
-		}
+	public @ResponseBody byte[] getImage(@RequestParam("id") final Integer id) throws IOException {
+		Image image = imageService.getImage(id);
+		System.out.println("lenght=" + image.getImageByte().length);
+	    return image.getImageByte();
 	}
 	
 	@RequestMapping(value = { "/reciept/allReciepts" }, method = RequestMethod.GET)
