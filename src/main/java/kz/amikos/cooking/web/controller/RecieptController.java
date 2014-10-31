@@ -2,8 +2,6 @@ package kz.amikos.cooking.web.controller;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletResponse;
-
 import kz.amikos.cooking.web.models.Image;
 import kz.amikos.cooking.web.models.Reciept;
 import kz.amikos.cooking.web.models.User;
