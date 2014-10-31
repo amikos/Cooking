@@ -48,8 +48,9 @@ public class RecieptController {
 		
 		if (id != 0) { 
 		    response.setContentType("image/jpeg");
-		    Image image = imageService.getImage(id);
 		    
+		    Image image = imageService.getImage(id);
+		    System.out.println("lenght=" + image.getImageByte().length);
 		    response.getOutputStream().write(image.getImageByte());
 		    response.getOutputStream().flush();
 		}
