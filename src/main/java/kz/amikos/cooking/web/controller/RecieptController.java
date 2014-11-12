@@ -107,6 +107,8 @@ public class RecieptController {
             	e.printStackTrace();
                 return "You failed to upload " + file.getName() + " => " + e.getMessage();
             }
+            
+            System.out.println("image byte[] " + imageByte.length);
             	
             reciept.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
             
