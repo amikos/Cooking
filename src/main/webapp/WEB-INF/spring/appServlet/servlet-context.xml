@@ -17,6 +17,8 @@
                 <beans:list>
                     <beans:value>image/jpeg</beans:value>
                     <beans:value>image/png</beans:value>
+                    <beans:value>image/jpg</beans:value>
+                    <beans:value>image/gif</beans:value>
                 </beans:list>
             </beans:property>
         </beans:bean>
