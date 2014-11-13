@@ -1,6 +1,7 @@
 package kz.amikos.cooking.web.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import kz.amikos.cooking.web.models.Image;
 import kz.amikos.cooking.web.models.Reciept;
@@ -45,7 +46,6 @@ public class RecieptController {
 	@RequestMapping("/getImage{id}")
 	public @ResponseBody byte[] getImage(@RequestParam("id") final Integer id) throws IOException {
 		Image image = imageService.getImage(id);
-		System.out.println("lenght=" + image.getImageByte().length);
 	    return image.getImageByte();
 	}
 	
@@ -66,7 +66,13 @@ public class RecieptController {
 		
 		ModelAndView model = new ModelAndView();
 		
-		model.addObject("reciept", recieptService.getReciept(id));
+		Reciept reciept = recieptService.getReciept(id);
+		
+		List<Image> images = imageService.getImagesByRecieptId(id);
+		
+		reciept.setImages(images);
+		
+		model.addObject("reciept", reciept);
 		
 		model.setViewName("/reciept/editReciept");
 		return model;
@@ -77,9 +83,7 @@ public class RecieptController {
 	public String editReciept(@ModelAttribute("reciept") Reciept reciept, @RequestParam("file") MultipartFile file) {
 		recieptService.updateReciept(reciept);
 		
-		System.out.println(reciept.getRecieptId());
-		
-		System.out.println(reciept.getRecieptName());
+		System.out.println(reciept.getRecieptData().toString());
 		
 		return "redirect:/reciept/myReciepts";
 	}
@@ -108,8 +112,6 @@ public class RecieptController {
                 return "You failed to upload " + file.getName() + " => " + e.getMessage();
             }
             
-            System.out.println("image byte[] " + imageByte.length);
-            	
             reciept.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
             
             Image image = new Image();

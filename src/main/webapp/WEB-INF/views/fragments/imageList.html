@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="row" th:fragment="imageList (images)">
+		<label>Image List</label>
+		<div th:each="image : ${images}">
+			<h3 th:text="${image.imageName}">Header Name</h3>
+		</div>
+	</div>
+</body>
+</html>

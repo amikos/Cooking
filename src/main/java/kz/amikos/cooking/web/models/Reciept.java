@@ -9,7 +9,17 @@ public class Reciept {
 	private String recieptName;
 	private String recieptDescription;
 	private List<Image> images;
+	private String recieptData;
 	
+
+	public String getRecieptData() {
+		return recieptData;
+	}
+
+	public void setRecieptData(String recieptData) {
+		this.recieptData = recieptData;
+	}
+
 	public int getFirstImageId(){
 		if (images != null){
 			if (!images.isEmpty()) {
