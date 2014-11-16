@@ -10,7 +10,15 @@ public class Reciept {
 	private String recieptDescription;
 	private List<Image> images;
 	private String recieptData;
+	private String recieptImage;
 	
+	public String getRecieptImage() {
+		return recieptImage;
+	}
+
+	public void setRecieptImage(String recieptImage) {
+		this.recieptImage = recieptImage;
+	}
 
 	public String getRecieptData() {
 		return recieptData;

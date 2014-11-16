@@ -1,7 +1,6 @@
 package kz.amikos.cooking.web.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import kz.amikos.cooking.web.models.Image;
 import kz.amikos.cooking.web.models.Reciept;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -68,10 +66,6 @@ public class RecieptController {
 		
 		Reciept reciept = recieptService.getReciept(id);
 		
-		List<Image> images = imageService.getImagesByRecieptId(id);
-		
-		reciept.setImages(images);
-		
 		model.addObject("reciept", reciept);
 		
 		model.setViewName("/reciept/editReciept");
@@ -80,10 +74,10 @@ public class RecieptController {
 	}
 	
 	@RequestMapping(value = { "/reciept/editReciept" }, method = RequestMethod.POST)
-	public String editReciept(@ModelAttribute("reciept") Reciept reciept, @RequestParam("file") MultipartFile file) {
+	public String editReciept(@ModelAttribute("reciept") Reciept reciept) {
 		recieptService.updateReciept(reciept);
 		
-		System.out.println(reciept.getRecieptData().toString());
+		System.out.println("reciept.getRecieptImage()=" + reciept.getRecieptImage());
 		
 		return "redirect:/reciept/myReciepts";
 	}
@@ -101,34 +95,13 @@ public class RecieptController {
 	}
 	
 	@RequestMapping(value = { "/reciept/newReciept" }, method = RequestMethod.POST)
-	public String addReciept(@ModelAttribute("reciept") Reciept reciept, @RequestParam("file") MultipartFile file) {
+	public String addReciept(@ModelAttribute("reciept") Reciept reciept) {
 		
-		byte[] imageByte = null;
-		if (!file.isEmpty()) {
-            try {
-            	imageByte = file.getBytes();
-            } catch (Exception e) {
-            	e.printStackTrace();
-                return "You failed to upload " + file.getName() + " => " + e.getMessage();
-            }
-            
-            reciept.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
-            
-            Image image = new Image();
-            image.setImageByte(imageByte);
-            image.setImageName(file.getName());
-            
-    		int recieptId = recieptService.addReciept(reciept);
-    		
-    		image.setReciept_id(recieptId);
-    		
-    		imageService.addImage(image);
-    		
-    		return "redirect:/reciept/myReciepts";
-            
-        } else {
-            return "You failed to upload " + file.getName() + " because the file was empty.";
-        }
+        reciept.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
+        
+		recieptService.addReciept(reciept);
+		
+		return "redirect:/reciept/myReciepts";
 		
 	}
 	

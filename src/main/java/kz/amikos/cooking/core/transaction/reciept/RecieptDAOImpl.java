@@ -24,9 +24,9 @@ import org.springframework.jdbc.support.KeyHolder;
 
 public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	
-	private String INSERT_RECIEPT_DAO = "insert into user_reciepts (username, reciept_name, reciept_description, reciept_data) values (?, ?, ?, ?)";
-	private String SELECT_RECIEPT_DAO = "select reciept_id, username, reciept_name, reciept_description, reciept_data from user_reciepts";
-	private String UPDATE_RECIEPT_DAO = "update user_reciepts set reciept_name = ?, reciept_description = ? , reciept_data = ? where reciept_id = ?";
+	private String INSERT_RECIEPT_DAO = "insert into user_reciepts (username, reciept_name, reciept_description, reciept_image, reciept_data) values (?, ?, ?, ?)";
+	private String SELECT_RECIEPT_DAO = "select reciept_id, username, reciept_name, reciept_description, reciept_image, reciept_data from user_reciepts";
+	private String UPDATE_RECIEPT_DAO = "update user_reciepts set reciept_name = ?, reciept_description = ? , reciept_image = ? , reciept_data = ? where reciept_id = ?";
 	
 	@Autowired
 	ImageService imageService;
@@ -49,8 +49,9 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 //		
 //		getJdbcTemplate().update(psc);
 		
-        Object[] params = {reciept.getRecieptName(), reciept.getRecieptDescription(), reciept.getRecieptData(), reciept.getRecieptId()};
-        int[] types = {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+        Object[] params = {reciept.getRecieptName(), reciept.getRecieptDescription(),
+        		reciept.getRecieptImage(), reciept.getRecieptData(), reciept.getRecieptId()};
+        int[] types = {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
  
         int rows = getJdbcTemplate().update(UPDATE_RECIEPT_DAO, params, types);
 	}
@@ -64,8 +65,10 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	        	if (rs.next()) {
 	        		Reciept reciept = new Reciept();
 	        		reciept.setRecieptId(rs.getInt("reciept_id"));
+	        		reciept.setUsername(rs.getString("username"));
 	        		reciept.setRecieptDescription(rs.getString("reciept_description"));
 	        		reciept.setRecieptName(rs.getString("reciept_name"));
+	        		reciept.setRecieptImage(rs.getString("reciept_image"));
 	        		reciept.setRecieptData(rs.getString("reciept_data"));
 	        		
 	        		return reciept;
@@ -89,7 +92,8 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	            ps.setString(1, reciept.getUsername());
 	            ps.setString(2, reciept.getRecieptName());
 	            ps.setString(3, reciept.getRecieptDescription());
-	            ps.setString(4, reciept.getRecieptData());
+	            ps.setString(4, reciept.getRecieptImage());
+	            ps.setString(5, reciept.getRecieptData());
 	            return ps;
 	        }
 		};
@@ -110,6 +114,7 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 				reciept.setUsername(rs.getString("username"));
 				reciept.setRecieptName(rs.getString("reciept_name"));
 				reciept.setRecieptDescription(rs.getString("reciept_description"));
+				reciept.setRecieptImage(rs.getString("reciept_image"));
 				reciept.setRecieptData(rs.getString("reciept_data"));
 				
 				List<Image> images = imageService.getImagesByRecieptId(reciept.getRecieptId());
@@ -129,6 +134,7 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 				reciept.setUsername(rs.getString("username"));
 				reciept.setRecieptName(rs.getString("reciept_name"));
 				reciept.setRecieptDescription(rs.getString("reciept_description"));
+				reciept.setRecieptImage(rs.getString("reciept_image"));
 				reciept.setRecieptData(rs.getString("reciept_data"));
 				
 				List<Image> images = imageService.getImagesByRecieptId(reciept.getRecieptId());
