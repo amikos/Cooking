@@ -24,7 +24,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	
-	private String INSERT_RECIEPT_DAO = "insert into user_reciepts (username, reciept_name, reciept_description, reciept_image, reciept_data) values (?, ?, ?, ?)";
+	private String INSERT_RECIEPT_DAO = "insert into user_reciepts (username, reciept_name, reciept_description, reciept_image, reciept_data) values (?, ?, ?, ?, ?)";
 	private String SELECT_RECIEPT_DAO = "select reciept_id, username, reciept_name, reciept_description, reciept_image, reciept_data from user_reciepts";
 	private String UPDATE_RECIEPT_DAO = "update user_reciepts set reciept_name = ?, reciept_description = ? , reciept_image = ? , reciept_data = ? where reciept_id = ?";
 	
@@ -34,26 +34,11 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	@Override
 	public void updateReciept(final Reciept reciept) {
 		
-		//TODO Change
-//		final PreparedStatementCreator psc = new PreparedStatementCreator() {
-//			
-//	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//	            PreparedStatement ps =
-//	                connection.prepareStatement(UPDATE_RECIEPT_DAO);
-//	            ps.setString(1, reciept.getRecieptName());
-//	            ps.setString(2, reciept.getRecieptDescription());
-//	            ps.setInt(3, reciept.getRecieptId());
-//	            return ps;
-//	        }
-//		};
-//		
-//		getJdbcTemplate().update(psc);
-		
         Object[] params = {reciept.getRecieptName(), reciept.getRecieptDescription(),
         		reciept.getRecieptImage(), reciept.getRecieptData(), reciept.getRecieptId()};
         int[] types = {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
  
-        int rows = getJdbcTemplate().update(UPDATE_RECIEPT_DAO, params, types);
+        getJdbcTemplate().update(UPDATE_RECIEPT_DAO, params, types);
 	}
 	
 	@Override
@@ -77,7 +62,6 @@ public class RecieptDAOImpl extends JdbcDaoSupport implements RecieptDAO{
 	        }
 	    });
 		
-//		User user = (User) getJdbcTemplate().queryForObject(SELECT_USER_DAO + " where username='" + userName + "'", new BeanPropertyRowMapper<User>(User.class));
 	}
 
 	@Override

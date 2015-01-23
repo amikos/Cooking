@@ -77,6 +77,8 @@ public class RecieptController {
 	public String editReciept(@ModelAttribute("reciept") Reciept reciept) {
 		recieptService.updateReciept(reciept);
 		
+		System.out.println(reciept.getRecieptData().toString());
+		
 		System.out.println("reciept.getRecieptImage()=" + reciept.getRecieptImage());
 		
 		return "redirect:/reciept/myReciepts";
