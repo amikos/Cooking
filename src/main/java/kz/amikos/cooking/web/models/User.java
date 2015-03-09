@@ -1,80 +1,78 @@
 package kz.amikos.cooking.web.models;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-public class User implements UserDetails{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2578894289689781576L;
-	
+@Entity
+@Table(name = "users")
+public class User {
+ 
 	private String username;
 	private String password;
 	private boolean enabled;
-	
-    private List<Role> authorities;
-    private boolean accountNonExpired = true;
-    private boolean accountNonLocked = true;
-    private boolean credentialsNonExpired = true;
-	
-	public void setEnabled(boolean enabled) {
+	private Set<UserRole> userRole = new HashSet<UserRole>(0);
+ 
+	public User() {
+	}
+ 
+	public User(String username, String password, boolean enabled) {
+		this.username = username;
+		this.password = password;
 		this.enabled = enabled;
 	}
-	public void setAuthorities(List<Role> authorities) {
-		this.authorities = authorities;
+ 
+	public User(String username, String password, 
+		boolean enabled, Set<UserRole> userRole) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.userRole = userRole;
 	}
-	public void setAccountNonExpired(boolean accountNonExpired) {
-		this.accountNonExpired = accountNonExpired;
-	}
-	public void setAccountNonLocked(boolean accountNonLocked) {
-		this.accountNonLocked = accountNonLocked;
-	}
-	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-		this.credentialsNonExpired = credentialsNonExpired;
-	}
+ 
+	@Id
+	@Column(name = "username", unique = true, 
+		nullable = false, length = 45)
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
+ 
 	public void setUsername(String username) {
 		this.username = username;
 	}
+ 
+	@Column(name = "password", 
+		nullable = false, length = 60)
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
+ 
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		 return this.authorities;
-	}
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return this.accountNonExpired;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return this.accountNonLocked;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return this.credentialsNonExpired;
-	}
-	@Override
+ 
+	@Column(name = "enabled", nullable = false)
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return this.enabled;
 	}
-	
+ 
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+ 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	public Set<UserRole> getUserRole() {
+		return this.userRole;
+	}
+ 
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRole = userRole;
+	}
+
 }

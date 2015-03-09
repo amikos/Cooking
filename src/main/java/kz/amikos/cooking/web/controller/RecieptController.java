@@ -8,9 +8,11 @@ import kz.amikos.cooking.web.models.User;
 import kz.amikos.cooking.core.provider.CustomAuthenticationProvider;
 import kz.amikos.cooking.core.service.image.ImageService;
 import kz.amikos.cooking.core.service.reciept.RecieptService;
+import kz.amikos.cooking.core.service.user.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,14 +27,18 @@ public class RecieptController {
 	RecieptService recieptService;
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
 	ImageService imageService;
 
 	@RequestMapping(value = { "/reciept/myReciepts" }, method = RequestMethod.GET)
+	@Transactional(readOnly = true)
 	public ModelAndView myRecieptList() {
 		 
 		ModelAndView model = new ModelAndView();
 		
-		User currentUser = CustomAuthenticationProvider.getAuthenticatedUser();
+		User currentUser = userService.loadUserByUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
 		
 		model.addObject("myRecieptList", recieptService.getUserReciepts(currentUser));
 		

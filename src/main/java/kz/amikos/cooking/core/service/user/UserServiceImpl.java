@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.getAllUsers();
 	}
 
-	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly=true)
 	public User loadUserByUsername(String userName) {
 		return userDao.loadUserByUsername(userName);
 	}

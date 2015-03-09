@@ -42,7 +42,8 @@
 
 		<beans:property name="maxUploadSize" value="1000000" />
 
-	</beans:bean>
+	</beans:bean> 
+	
 
 	<context:component-scan base-package="kz.amikos.cooking" />
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kz.amikos.cooking.core.service.user.UserService;
-import kz.amikos.cooking.web.models.Role;
+import kz.amikos.cooking.web.models.UserRole;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
@@ -15,8 +15,8 @@ public class RestController {
 	UserService userService;
 
     @RequestMapping("/roles")
-    public List<Role> greeting(@RequestParam(value="username", required=true) String username) {
-    	List<Role> roles = (List<Role>) userService.loadUserByUsername(username).getAuthorities();
+    public List<UserRole> greeting(@RequestParam(value="username", required=true) String username) {
+    	List<UserRole> roles = (List<UserRole>) userService.loadUserByUsername(username).getUserRole();
     	System.out.println(roles);
     	return roles;
     }

@@ -1,9 +1,12 @@
 package kz.amikos.cooking.core.provider;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import kz.amikos.cooking.core.service.user.UserService;
-import kz.amikos.cooking.web.models.User;
+import kz.amikos.cooking.web.models.UserRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -13,8 +16,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -23,24 +29,49 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private UserService userService;
  
     @Override
+    @Transactional(readOnly = true)
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
  
-        User user = userService.loadUserByUsername(username);
- 
-        if (user == null) {
+        kz.amikos.cooking.web.models.User myUser = userService.loadUserByUsername(username);
+        
+        if (myUser == null) {
             throw new BadCredentialsException("Username not found.");
         }
  
-        if (!password.equals(user.getPassword())) {
+        if (!password.equals(myUser.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
         }
         
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        List<GrantedAuthority> authorities = buildUserAuthority(myUser.getUserRole());
+        
+        User user = buildUserForAuthentication(myUser, authorities);
  
         return new UsernamePasswordAuthenticationToken(user, password, authorities);
     }
+    
+	// Converts com.mkyong.users.model.User user to
+	// org.springframework.security.core.userdetails.User
+	private User buildUserForAuthentication(kz.amikos.cooking.web.models.User user, 
+		List<GrantedAuthority> authorities) {
+		return new User(user.getUsername(), user.getPassword(), 
+			user.isEnabled(), true, true, true, authorities);
+	}
+	
+	private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
+		 
+		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+ 
+		// Build user's authorities
+		for (UserRole userRole : userRoles) {
+			setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
+		}
+ 
+		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
+ 
+		return Result;
+	}
     
     public static User getAuthenticatedUser() {
     	User user = null;
