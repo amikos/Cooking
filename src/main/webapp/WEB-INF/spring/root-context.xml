@@ -4,35 +4,21 @@
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
-		http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/aop 
-		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/tx
 	    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 	
 	<context:component-scan base-package="kz.amikos.cooking" />
-	
+
 	<import resource="spring-security.xml" />
 	<import resource="thymeleaf.xml"/>
 	
 	<jee:jndi-lookup id="dataSource"
 		jndi-name="java:jboss/datasources/PostgreSQLDS" />
 		
-	<bean id="recieptDAO" class="kz.amikos.cooking.core.transaction.reciept.RecieptDAOImpl">
-		<property name="dataSource" ref="dataSource" />
-	</bean> 
-		
-	<bean id="imageDAO" class="kz.amikos.cooking.core.transaction.image.ImageDAOImpl">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	
-	<!-- Hibernate 4 SessionFactory Bean definition -->
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -40,6 +26,7 @@
             <list>
                 <value>kz.amikos.cooking.web.models.User</value>
                 <value>kz.amikos.cooking.web.models.UserRole</value>
+				<value>kz.amikos.cooking.web.models.Receipt</value>
             </list>
         </property>
         <property name="hibernateProperties">

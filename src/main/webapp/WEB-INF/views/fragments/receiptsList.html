@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="container" th:fragment="receiptsList (receiptItemlist)">
+		<div class="row">
+			<div th:each="receiptItem : ${receiptItemlist}">
+				<div class="col-sm-6 col-md-4">
+					<div class="thumbnail">
+						<img th:src="${receiptItem.receiptImage != ''} ? ${receiptItem.receiptImage} : 'http://наболело.рф/templates/bootstrap/dleimages/no_image.jpg'" style="height:250px"/>
+						<div class="caption">
+							<h3 th:text="${receiptItem.receiptName}">Header Name</h3>
+							<p th:text="${receiptItem.receiptDescription}">Description</p>
+							<p align="center">
+								<a th:href="@{../receipt/editreceipt(id=${receiptItem.receiptId})}"
+									class="btn btn-primary btn-block">Open</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

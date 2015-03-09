@@ -21,14 +21,6 @@ public class UserRole{
 	private User user;
 	private String role;
  
-	public UserRole() {
-	}
- 
-	public UserRole(User user, String role) {
-		this.user = user;
-		this.role = role;
-	}
- 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_role_id", 

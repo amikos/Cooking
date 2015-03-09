@@ -18,11 +18,11 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar-brand-centered">
 				<ul class="nav navbar-nav">
-					<li><a href="../reciept/allReciepts" th:href="@{/reciept/allReciepts}">All Reciepts</a></li>
+					<li><a href="../receipt/allreceipts" th:href="@{/receipt/allreceipts}">All receipts</a></li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
-						<a href="../reciept/myReciepts" th:href="@{/reciept/myReciepts}">My Reciepts</a></li>
+						<a href="../receipt/myreceipts" th:href="@{/receipt/myreceipts}">My receipts</a></li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
-						<a href="../reciept/newReciept" th:href="@{/reciept/newReciept}">New Reciept</a></li>
+						<a href="../receipt/newreceipt" th:href="@{/receipt/newreceipt}">New receipt</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown" th:if="${#authorization.expression('!isAuthenticated()')}">
