@@ -5,8 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_reciepts")
 public class Receipt {
-	@Id
+	@Id()
 	@GeneratedValue()
+	@Column(name = "reciept_id")
 	private int receiptId;
 
 	@Column(name = "username")

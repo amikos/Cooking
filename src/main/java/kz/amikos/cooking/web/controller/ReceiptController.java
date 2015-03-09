@@ -23,7 +23,7 @@ public class ReceiptController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping(value = { "/receipt/myreceipts" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/receipt/myReceipts" }, method = RequestMethod.GET)
 	@Transactional(readOnly = true)
 	public ModelAndView myReceiptList() {
 
@@ -32,12 +32,12 @@ public class ReceiptController {
 		User currentUser = userService.loadUserByUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
 
 		model.addObject("myReceiptList", receiptService.getUserReceipts(currentUser));
-		model.setViewName("/receipt/myreceipts");
+		model.setViewName("/receipt/myReceipts");
 
 		return model;
 	}
 
-	@RequestMapping(value = { "/receipt/allreceipts" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/receipt/allReceipts" }, method = RequestMethod.GET)
 	public ModelAndView allReceiptList() {
 
 		ModelAndView model = new ModelAndView();
@@ -46,12 +46,12 @@ public class ReceiptController {
 
 		model.addObject("allReceiptList", receiptService.getAllReceipts());
 
-		model.setViewName("/receipt/allreceipts");
+		model.setViewName("/receipt/allReceipts");
 		return model;
 
 	}
 
-	@RequestMapping(value = { "/receipt/editreceipt{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/receipt/editReceipt{id}" }, method = RequestMethod.GET)
 	public ModelAndView editReceipt(@RequestParam("id") final Integer id) {
 
 		ModelAndView model = new ModelAndView();
@@ -60,38 +60,38 @@ public class ReceiptController {
 
 		model.addObject("receipt", receipt);
 
-		model.setViewName("/receipt/editreceipt");
+		model.setViewName("/receipt/editReceipt");
 		return model;
 
 	}
 
-	@RequestMapping(value = { "/receipt/editreceipt" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/receipt/editReceipt" }, method = RequestMethod.POST)
 	public String editReceipt(@ModelAttribute("receipt") Receipt receipt) {
 		receiptService.updateReceipt(receipt);
 
 		return "redirect:/receipt/myreceipts";
 	}
 
-	@RequestMapping(value = { "/receipt/newreceipt" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/receipt/newReceipt" }, method = RequestMethod.GET)
 	public ModelAndView receiptForm() {
 
 		ModelAndView model = new ModelAndView();
 
 		model.addObject("receipt", new Receipt());
 
-		model.setViewName("/receipt/newreceipt");
+		model.setViewName("/receipt/newReceipt");
 		return model;
 
 	}
 
-	@RequestMapping(value = { "/receipt/newreceipt" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/receipt/newReceipt" }, method = RequestMethod.POST)
 	public String addReceipt(@ModelAttribute("receipt") Receipt receipt) {
 
         receipt.setUsername(CustomAuthenticationProvider.getAuthenticatedUser().getUsername());
 
 		receiptService.addReceipt(receipt);
 
-		return "redirect:/receipt/myreceipts";
+		return "redirect:/receipt/myReceipts";
 		
 	}
 	

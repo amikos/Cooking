@@ -42,7 +42,6 @@ public class ReceiptDAOImpl implements ReceiptDAO {
 	public List<Receipt> getAllReceipts() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Receipt.class);
 
-		System.out.println(criteria.list().size());
 		return criteria.list();
 	}
 	
