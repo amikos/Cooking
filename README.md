@@ -33,3 +33,41 @@ CREATE SEQUENCE user_reciept_seq
   START 1
   CACHE 1;
 ALTER TABLE user_reciept_seq OWNER TO postgres;
+
+-- Table: user_roles
+
+-- DROP TABLE user_roles;
+
+CREATE TABLE user_roles
+(
+  user_role_id integer NOT NULL,
+  username character varying(45) NOT NULL,
+  role character varying(45) NOT NULL,
+  CONSTRAINT user_roles_pkey PRIMARY KEY (user_role_id),
+  CONSTRAINT fk_username FOREIGN KEY (username)
+      REFERENCES users (username) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE user_roles
+  OWNER TO postgres;
+
+-- Table: users
+
+-- DROP TABLE users;
+
+CREATE TABLE users
+(
+  username character varying(45) NOT NULL,
+  password character varying(45) NOT NULL,
+  enabled integer NOT NULL DEFAULT 1,
+  CONSTRAINT users_pkey PRIMARY KEY (username)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE users
+  OWNER TO postgres;
+
