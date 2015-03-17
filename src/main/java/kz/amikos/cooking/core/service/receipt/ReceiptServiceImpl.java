@@ -18,24 +18,24 @@ public class ReceiptServiceImpl implements ReceiptService {
 	@Autowired
 	ReceiptDAOImpl receiptDAO;
 	
-	public int addReceipt(Receipt receipt) {
-		return receiptDAO.addReceipt(receipt);
+	public Long save(Receipt receipt) {
+		return receiptDAO.save(receipt);
 	}
 
-	public List<Receipt> getUserReceipts(User user) {
-		return receiptDAO.getUserReceipts(user);
+	public List<Receipt> getAllByUser(User user) {
+		return receiptDAO.getAllByUser(user);
 	}
 	
-	public List<Receipt> getAllReceipts(){
-		return receiptDAO.getAllReceipts();
+	public List<Receipt> getAll(){
+		return receiptDAO.getAll();
 	}
 
-	public Receipt getReceipt(int id) {
-		return receiptDAO.getReceipt(id);
+	public Receipt getById(int id) {
+		return receiptDAO.getById(id);
 	}
 
-	public void updateReceipt(Receipt receipt) {
-		receiptDAO.updateReceipt(receipt);
+	public void update(Receipt receipt) {
+		receiptDAO.update(receipt);
 	}
 	
 }

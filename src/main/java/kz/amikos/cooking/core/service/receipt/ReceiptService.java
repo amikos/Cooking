@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface ReceiptService {
 	
-	void updateReceipt(final Receipt receipt);
+	void update(final Receipt receipt);
 
-	Receipt getReceipt(int id);
-		
-	int addReceipt(Receipt receipt);
+	Receipt getById(int id);
+
+	Long save(Receipt receipt);
 	
-	List<Receipt> getUserReceipts(User user);
+	List<Receipt> getAllByUser(User user);
 	
-	List<Receipt> getAllReceipts();
+	List<Receipt> getAll();
 	
 }

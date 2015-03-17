@@ -8,10 +8,7 @@
  		
  		<intercept-url pattern="/receipt/newreceipt" access="isAuthenticated()" />
  		<intercept-url pattern="/receipt/myreceipts" access="isAuthenticated()" />
- 		<intercept-url pattern="/welcome" access="isAuthenticated()" />
-		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/upload" access="isAuthenticated()" />
- 
+
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" /> 
  
@@ -25,26 +22,6 @@
 		<logout logout-success-url="/login?logout"/>
 	</http>
 
-<!-- <authentication-manager  alias="authenticationManager">
-	    <authentication-provider>
-	        <user-service>
-	            <user name="goha" password="123" authorities="ROLE_ADMIN" />
-	            <user name="jansar" password="123" authorities="ROLE_ADMIN" />
-	        </user-service>
-	    </authentication-provider>
-	</authentication-manager>
-
-
-	<authentication-manager>
-		<authentication-provider>
-			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select username,password, enabled from users where 
-		username=?"
-				authorities-by-username-query="select username, role from user_roles 
-		where username =? " />
-		</authentication-provider>
-	</authentication-manager> -->
-	
 	<authentication-manager alias="authenticationManager">
         <authentication-provider ref="customAuthenticationProvider" />
     </authentication-manager>

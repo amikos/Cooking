@@ -16,7 +16,7 @@ public class RestController {
 
     @RequestMapping("/roles")
     public List<UserRole> greeting(@RequestParam(value="username", required=true) String username) {
-    	List<UserRole> roles = (List<UserRole>) userService.loadUserByUsername(username).getUserRole();
+    	List<UserRole> roles = (List<UserRole>) userService.getByUsername(username).getUserRole();
     	System.out.println(roles);
     	return roles;
     }

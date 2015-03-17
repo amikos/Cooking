@@ -36,6 +36,10 @@
 							</label>
 						</div>
 						<input type="submit" value="Log in" class="btn btn-sm btn-success"/>
+
+						<div th:if="${error}!=''">
+							<label class="alert alert-warning" th:text="${error}">Error</label>
+						</div>
 					</fieldset>
 				</form>
 			</div>

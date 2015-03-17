@@ -1,13 +1,8 @@
 package kz.amikos.cooking.core.provider;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import kz.amikos.cooking.core.service.user.UserService;
 import kz.amikos.cooking.web.models.UserRole;
-
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,6 +17,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
  
@@ -34,16 +34,20 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
  
-        kz.amikos.cooking.web.models.User myUser = userService.loadUserByUsername(username);
+        kz.amikos.cooking.web.models.User myUser = userService.getByUsername(username);
         
         if (myUser == null) {
             throw new BadCredentialsException("Username not found.");
         }
- 
-        if (!password.equals(myUser.getPassword())) {
-            throw new BadCredentialsException("Wrong password.");
+
+        try {
+            if (!password.equals(myUser.getPassword())) {
+                throw new BadCredentialsException("Wrong password.");
+            }
+        }catch(ObjectNotFoundException e){
+            throw new BadCredentialsException("Username not found.");
         }
-        
+
         List<GrantedAuthority> authorities = buildUserAuthority(myUser.getUserRole());
         
         User user = buildUserForAuthentication(myUser, authorities);

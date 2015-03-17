@@ -7,10 +7,14 @@ import java.util.List;
 
 public interface ReceiptDAO {
 
-	public Receipt getReceipt(int id);
-	public void updateReceipt(final Receipt receipt);
-	public int addReceipt(Receipt receipt);
-	public List<Receipt> getUserReceipts(User user);
-	public List<Receipt> getAllReceipts();
+	void update(final Receipt receipt);
+
+	Receipt getById(int id);
+
+	Long save(Receipt receipt);
+
+	List<Receipt> getAllByUser(User user);
+
+	List<Receipt> getAll();
 	
 }

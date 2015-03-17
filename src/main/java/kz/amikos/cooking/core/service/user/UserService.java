@@ -6,10 +6,10 @@ import kz.amikos.cooking.web.models.User;
 
 public interface UserService {
 	
-	void addUser(User user);
+	void save(User user);
 	
-	List<User> getAllUsers();
+	List<User> getAll();
 	
-	User loadUserByUsername(String userName);
+	User getByUsername(String userName);
 	
 }

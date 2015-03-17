@@ -6,7 +6,7 @@ import kz.amikos.cooking.web.models.User;
 
 public interface UserDAO {
 
-	public void addUser(User user);
-	public List<User> getAllUsers();
-	public User loadUserByUsername(String userName);
+	public void save(User user);
+	public List<User> getAll();
+	public User getByUsername(String userName);
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import kz.amikos.cooking.web.models.User;
 
+import kz.amikos.cooking.web.models.UserRole;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,16 @@ public class UserDAOImpl implements UserDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void addUser(User user) {
-		Session session = this.sessionFactory.getCurrentSession();
-        session.persist(user);
+	public void save(User user) {
+		this.sessionFactory.getCurrentSession().persist(user);
 	}
 
-	public List<User> getAllUsers() {
-		Session session = this.sessionFactory.getCurrentSession();
-        List<User> usersList = session.createCriteria(User.class).list();
-        return usersList;
+	public List<User> getAll() {
+		return this.sessionFactory.getCurrentSession().createCriteria(User.class).list();
 	}
 
-	public User loadUserByUsername(String userName) {
-		Session session = this.sessionFactory.getCurrentSession();     
-        User user = (User) session.load(User.class, userName);
-        return user;
+	public User getByUsername(String userName) {
+		return (User) this.sessionFactory.getCurrentSession().load(User.class, userName);
 	}
 	
 }

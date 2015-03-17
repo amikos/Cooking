@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- Page Content -->
+    <div class="container" th:fragment="receiptEdit (submitType)">
+
+        <form method="POST" th:object="${receipt}" th:action="${submitType}" class="form-horizontal" role="form">
+
+            <!--hidden elements -->
+            <div class="form-group" style="display:none">
+                <input placeholder="id" name="id" id="id" type="text" th:field="*{receiptId}"/>
+                <input placeholder="username" name="username" id="username" type="text" th:field="*{username}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label> <input class="form-control"
+                                                      placeholder="name" name="name" id="name" type="text" autofocus=""
+                                                      th:field="*{receiptName}" />
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label> <input
+                    class="form-control" placeholder="description" name="description"
+                    id="description" type="text" th:field="*{receiptDescription}" />
+            </div>
+            <div class="form-group">
+                <label for="mainImage">Main picture link</label> <input
+                    class="form-control" placeholder="mainImage" name="mainImage"
+                    id="mainImage" type="text" th:field="*{receiptImage}"/>
+            </div>
+
+            <div class="form-group">
+                <textarea name="editor1" id="editor1" rows="10" cols="80" th:field="*{receiptData}" >
+                    This is my textarea to be replaced with CKEditor.
+                </textarea>
+                <script>
+                    CKEDITOR.replace('editor1');
+                </script>
+            </div>
+            <input type="submit" th:value="${submitType}" value="Save" class="btn btn-sm btn-success" />
+        </form>
+    </div>
+</body>
+</html>

@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	layout:decorator="./templates/layout">
-
 <head>
 <meta charset="utf-8" />
 <title>New receipt</title>
@@ -18,7 +16,10 @@
 <body>
 	<div th:replace="fragments/header :: header">header</div>
 
-	<div th:replace="fragments/receiptForm :: receiptForm ('editreceipt')"></div>
+	<div th:switch="${#authorization.expression('isAuthenticated()')==true}">
+		<div th:case="true" th:replace="fragments/receiptEdit :: receiptEdit('editreceipt')"/>
+		<div th:case="false" th:replace="fragments/receiptView :: receiptView"/>
+	</div>
 
 	<div th:replace="fragments/footer :: footer">footer</div>
 </body>

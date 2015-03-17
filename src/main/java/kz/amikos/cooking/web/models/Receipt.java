@@ -1,12 +1,18 @@
 package kz.amikos.cooking.web.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_reciepts")
 public class Receipt {
+
 	@Id()
-	@GeneratedValue()
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "reciept_id")
 	private int receiptId;
 
@@ -24,6 +30,18 @@ public class Receipt {
 
 	@Column(name = "reciept_image")
 	private String receiptImage;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "receipt")
+	@Fetch(FetchMode.SELECT)
+	private Set<Comment> comments = new HashSet<Comment>(0);
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public int getReceiptId() {
 		return receiptId;

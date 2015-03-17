@@ -17,14 +17,12 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDAOImpl userDao;
 
-	public void addUser(User user) {
-		userDao.addUser(user);
+	public void save(User user) {
+		userDao.save(user);
 	}
-	public List<User> getAllUsers() {
-		return userDao.getAllUsers();
-	}
-	public User loadUserByUsername(String userName) {
-		return userDao.loadUserByUsername(userName);
+	public List<User> getAll() { return userDao.getAll(); }
+	public User getByUsername(String userName) {
+		return userDao.getByUsername(userName);
 	}
 	
 }

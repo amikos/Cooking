@@ -17,29 +17,29 @@ public class ReceiptDAOImpl implements ReceiptDAO {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public void updateReceipt(final Receipt receipt) {
+	public void update(final Receipt receipt) {
 		sessionFactory.getCurrentSession().merge(receipt);
 	}
 	
 	@Override
-	public Receipt getReceipt(int id) {
+	public Receipt getById(int id) {
 		return (Receipt) sessionFactory.getCurrentSession().get(Receipt.class, id);
 	}
 
 	@Override
-	public int addReceipt(final Receipt receipt) {
-		return (Integer) sessionFactory.getCurrentSession().save(receipt);
+	public Long save(final Receipt receipt) {
+		return (Long) sessionFactory.getCurrentSession().save(receipt);
 	}
 
 	@Override
-	public List<Receipt> getUserReceipts(User user) {
+	public List<Receipt> getAllByUser(User user) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Receipt.class);
 		criteria.add(Restrictions.eq("username", user.getUsername()));
 		return criteria.list();
 	}
 
 	@Override
-	public List<Receipt> getAllReceipts() {
+	public List<Receipt> getAll() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Receipt.class);
 
 		return criteria.list();

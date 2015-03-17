@@ -22,18 +22,14 @@
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="annotatedClasses">
-            <list>
-                <value>kz.amikos.cooking.web.models.User</value>
-                <value>kz.amikos.cooking.web.models.UserRole</value>
-				<value>kz.amikos.cooking.web.models.Receipt</value>
-            </list>
-        </property>
+        <property name="annotatedPackages" value="kz.amikos.cooking.web.models" />
+		<property name="packagesToScan" value="kz.amikos.cooking.web.models"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect
                 </prop>
                 <prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>
